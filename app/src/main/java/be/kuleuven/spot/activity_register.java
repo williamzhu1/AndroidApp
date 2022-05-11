@@ -107,7 +107,7 @@ public class activity_register extends AppCompatActivity {
                 }
         );
         requestQueue.add(submitRequest);
-        Intent intent = new Intent(this, activity_post.class);
+        Intent intent = new Intent(this, activity_login.class);
         startActivity(intent);
     }
 

@@ -11,7 +11,7 @@
         android:id="@+id/Logo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="William is a BIG GORI"
+        android:text="LOGO"
         android:textColor="@color/white"
         android:textSize="36sp"
         android:textStyle="bold"

@@ -78,7 +78,7 @@ public class activity_login extends AppCompatActivity {
                 }
 
                 if(info.equals(password)){
-                    Intent intent = new Intent(activity_login.this, activity_home.class);
+                    Intent intent = new Intent(activity_login.this, Home.class);
                     startActivity(intent);
                 }else{
                     Toast.makeText(activity_login.this, "Password is not correct" , Toast.LENGTH_LONG).show();

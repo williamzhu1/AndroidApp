@@ -22,14 +22,14 @@ public class add_one extends AppCompatActivity {
         btn_publish.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(add_one.this, Home.class );
+                Intent intent = new Intent(add_one.this, HomeFragment.class );
                 startActivity(intent);
             }
         });
         btn_cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(add_one.this, Home.class );
+                Intent intent = new Intent(add_one.this, HomeFragment.class );
                 startActivity(intent);
             }
         });

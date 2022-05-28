@@ -1,14 +1,30 @@
 package be.kuleuven.spot;
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.Toast;
 
-import java.util.HashMap;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -22,9 +38,17 @@ public class HomeFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
+    private RecyclerView recyclerView;
+    private RecyclerView.Adapter mAdapter;
+    private RecyclerView.LayoutManager layoutManager;
+    private RequestQueue requestQueue;
+
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    List<post> postList = new ArrayList<post>();
+    Button btn_addOne;
+    private static final String checkMessages = "https://studev.groept.be/api/a21pt215/message_board";
 
     public HomeFragment() {
         // Required empty public constructor
@@ -61,6 +85,72 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false);
+        View v = inflater.inflate(R.layout.fragment_home, container, false);
+
+        dbpost();
+
+        recyclerView = (RecyclerView) v.findViewById(R.id.lv_recycle);
+        recyclerView.setHasFixedSize(true);
+
+        layoutManager = new LinearLayoutManager(this.getActivity());
+        recyclerView.setLayoutManager(layoutManager);
+        Log.d("tag", String.valueOf(postList.size()));
+
+        return v;
     }
+
+    private void dbpost(){
+        requestQueue = Volley.newRequestQueue(this.getActivity());
+        activity_home activity = (activity_home) getActivity();
+        JsonArrayRequest messageRequest = new JsonArrayRequest(Request.Method.GET,checkMessages,null,new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+                JSONObject o = null;
+                try {
+                    o = response.getJSONObject(0);
+                    for (int i = 0; i < response.length(); i++) {
+                        JSONObject obj = response.getJSONObject(i);
+                        Log.d("tag",o.toString(4));
+                        post p = new post(obj.getInt("id"), obj.getString("username"), obj.getString("content"), obj.getInt("time"),
+                                calculateDistance(obj.getDouble("latitude"), 50.5,
+                                        obj.getDouble("longitude"), 4.3), null);
+                        postList.add(p);
+                        Log.d("post", String.valueOf(postList.size()));
+                    }
+                    mAdapter = new RecycleViewAdapter(postList, getActivity());
+                    recyclerView.setAdapter(mAdapter);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+
+            }
+        },  new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getActivity(), "Unable to communicate with the server", Toast.LENGTH_LONG).show();
+            }
+        });
+
+        requestQueue.add(messageRequest);
+    }
+
+    private double calculateDistance(double lat1, double lat2, double lon1, double lon2){
+        lat1 = Math.toRadians(lat1);
+        lat2 = Math.toRadians(lat2);
+        lon1 = Math.toRadians(lon1);
+        lon2 = Math.toRadians(lon2);
+        double dlon = lon2 - lon1;
+        double dlat = lat2 - lat1;
+        double a = Math.pow(Math.sin(dlat/2), 2)
+                 + Math.cos(lat1) * Math.cos(lat2)
+                 * Math.pow(Math.sin(dlon/2), 2);
+        double c = 2 * Math.asin(Math.sqrt(a));
+
+        return (c * 6371);
+    }
+
+
+
+
 }

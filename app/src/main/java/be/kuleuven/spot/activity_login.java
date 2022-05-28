@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -29,6 +30,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import kotlin.reflect.KAnnotatedElement;
+
 public class activity_login extends AppCompatActivity {
 
     private EditText inputEmail_login;
@@ -38,7 +41,7 @@ public class activity_login extends AppCompatActivity {
     private RequestQueue requestQueue;
     private static final String checkEmailExistUrl = "https://studev.groept.be/api/a21pt215/ifEmailExist/";
     private static final String checkPasswordUrl = "https://studev.groept.be/api/a21pt215/passwordWithEmail/";
-
+    private static final String getUsernameUrl = "https://studev.groept.be/api/a21pt215/getUsername/";
 
 
 
@@ -54,6 +57,7 @@ public class activity_login extends AppCompatActivity {
 
         String email = inputEmail_login.getText().toString();
         String password = inputPassword_login.getText().toString();
+
         //Toast.makeText(activity_register.this, password + ", " + confirmPassword , Toast.LENGTH_LONG).show();
         checkIfEmailPassword(email,password);
     }
@@ -62,6 +66,38 @@ public class activity_login extends AppCompatActivity {
         requestQueue = Volley.newRequestQueue(this);
         String emailUrl = checkEmailExistUrl + email;
         String passwordUrl = checkPasswordUrl + email;
+        String usernameUrl = getUsernameUrl + email;
+
+        JsonArrayRequest getUsernameRequest = new JsonArrayRequest(Request.Method.GET,usernameUrl,null,new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+                String info = "";
+                JSONObject o = null;
+                try {
+                    o = response.getJSONObject(0);
+                    info = (String)o.get("username");
+                    //System.out.println(info);
+                    //System.out.println(password + " ahoaho");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                String username = info;
+                Intent intent = new Intent(activity_login.this, activity_home.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("email",email);
+                bundle.putString("username", username);
+                bundle.putString("password", password);
+                intent.putExtras(bundle);
+                startActivity(intent);
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(activity_login.this, "Username not found", Toast.LENGTH_LONG).show();
+            }
+        });
 
         JsonArrayRequest passwordRequest = new JsonArrayRequest(Request.Method.GET,passwordUrl,null,new Response.Listener<JSONArray>() {
             @Override
@@ -78,8 +114,10 @@ public class activity_login extends AppCompatActivity {
                 }
 
                 if(info.equals(password)){
-                    Intent intent = new Intent(activity_login.this, activity_home.class);
-                    startActivity(intent);
+
+
+                    requestQueue.add(getUsernameRequest);
+
                 }else{
                     Toast.makeText(activity_login.this, "Password is not correct" , Toast.LENGTH_LONG).show();
                 }

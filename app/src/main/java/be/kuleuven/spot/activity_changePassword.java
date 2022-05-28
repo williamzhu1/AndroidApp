@@ -44,9 +44,9 @@ public class activity_changePassword extends AppCompatActivity {
         confirmPassword = (EditText) findViewById(R.id.confirmNewPassword);
         changePassword = (Button) findViewById(R.id.btn_changePassword);
 
-        currentPasswordInDatabse = getIntent().getExtras().getString("password");
-        email = getIntent().getExtras().getString("email");
-        username = getIntent().getExtras().getString("username");
+       currentPasswordInDatabse = getIntent().getExtras().getString("password");
+       email = getIntent().getExtras().getString("email");
+       username = getIntent().getExtras().getString("username");
     }
 
     public void onBtn_changePassword_clicked(View caller) {

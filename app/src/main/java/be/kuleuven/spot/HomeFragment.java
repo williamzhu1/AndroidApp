@@ -1,23 +1,16 @@
 package be.kuleuven.spot;
 
-import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.util.Arrays;
-
-import android.widget.Button;
-import android.widget.Toast;
-
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -26,12 +19,12 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -82,7 +75,6 @@ public class HomeFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
@@ -94,41 +86,46 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_home, container, false);
+
         dbpost();
+
         recyclerView = (RecyclerView) v.findViewById(R.id.lv_recycle);
         recyclerView.setHasFixedSize(true);
 
         layoutManager = new LinearLayoutManager(this.getActivity());
         recyclerView.setLayoutManager(layoutManager);
+        Log.d("tag", String.valueOf(postList.size()));
 
-        mAdapter = new RecycleViewAdapter(postList, this.getActivity());
-        recyclerView.setAdapter(mAdapter);
         return v;
     }
 
     private void dbpost(){
         requestQueue = Volley.newRequestQueue(this.getActivity());
-
+        activity_home activity = (activity_home) getActivity();
         JsonArrayRequest messageRequest = new JsonArrayRequest(Request.Method.GET,checkMessages,null,new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
-                String info = "";
                 JSONObject o = null;
                 try {
                     o = response.getJSONObject(0);
-                    for (int i = 0; i < o.length(); i++) {
+                    for (int i = 0; i < response.length(); i++) {
                         JSONObject obj = response.getJSONObject(i);
+                        Log.d("tag",o.toString(4));
                         post p = new post(obj.getInt("id"), obj.getString("username"), obj.getString("content"), obj.getInt("time"),
-                                calculateDistance(obj.getDouble("latitude"),Double.valueOf(getActivity().getIntent().getExtras().getString("latitude")),
-                                        obj.getDouble("longitude"), Double.valueOf(getActivity().getIntent().getExtras().getString("longitude"))), null);
+                                calculateDistance(obj.getDouble("latitude"), 50.5,
+                                        obj.getDouble("longitude"), 4.3), null);
                         postList.add(p);
+                        Log.d("post", String.valueOf(postList.size()));
                     }
+                    mAdapter = new RecycleViewAdapter(postList, getActivity());
+                    recyclerView.setAdapter(mAdapter);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
 
+
             }
-        }, new Response.ErrorListener() {
+        },  new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Toast.makeText(getActivity(), "Unable to communicate with the server", Toast.LENGTH_LONG).show();
@@ -139,7 +136,18 @@ public class HomeFragment extends Fragment {
     }
 
     private double calculateDistance(double lat1, double lat2, double lon1, double lon2){
-        return lat1;
+        lat1 = Math.toRadians(lat1);
+        lat2 = Math.toRadians(lat2);
+        lon1 = Math.toRadians(lon1);
+        lon2 = Math.toRadians(lon2);
+        double dlon = lon2 - lon1;
+        double dlat = lat2 - lat1;
+        double a = Math.pow(Math.sin(dlat/2), 2)
+                 + Math.cos(lat1) * Math.cos(lat2)
+                 * Math.pow(Math.sin(dlon/2), 2);
+        double c = 2 * Math.asin(Math.sqrt(a));
+
+        return (c * 6371);
     }
 
 

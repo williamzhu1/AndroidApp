@@ -38,7 +38,7 @@
         app:layout_constraintTop_toBottomOf="@+id/Logo" />
 
     <Button
-        android:id="@+id/btn_Login"
+        android:id="@+id/btn_changePassword"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
@@ -58,9 +58,9 @@
         android:text="Don't Have an Account?"
         android:textColor="@color/white"
         android:textColorHint="@color/white"
-        app:layout_constraintEnd_toEndOf="@+id/btn_Login"
-        app:layout_constraintStart_toStartOf="@+id/btn_Login"
-        app:layout_constraintTop_toBottomOf="@+id/btn_Login" />
+        app:layout_constraintEnd_toEndOf="@+id/btn_changePassword"
+        app:layout_constraintStart_toStartOf="@+id/btn_changePassword"
+        app:layout_constraintTop_toBottomOf="@+id/btn_changePassword" />
 
     <EditText
         android:id="@+id/inputPassword_login"

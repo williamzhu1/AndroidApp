@@ -38,13 +38,13 @@ public class activity_home extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityHomeBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        replaceFragment(new MapFragment());
+        replaceFragment(new HomeFragment());
         Bundle bundle = getIntent().getExtras();
 
         locationManager = (LocationManager)getSystemService(LOCATION_SERVICE);
 
         if(ContextCompat.checkSelfPermission(activity_home.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
-                ContextCompat.checkSelfPermission(activity_home.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED)
+            ContextCompat.checkSelfPermission(activity_home.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED)
         {
             ActivityCompat.requestPermissions(activity_home.this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION,Manifest.permission.ACCESS_FINE_LOCATION},1);
         }
@@ -60,11 +60,11 @@ public class activity_home extends AppCompatActivity {
             }
         });
 
-        /*if(bundle.getBoolean("openProfile")){
+        if(bundle.getBoolean("openProfile")){
             ProfileFragment profile = new ProfileFragment();
             profile.setArguments(bundle);
             replaceFragment(new ProfileFragment());
-        } */
+        }
 
         binding.bottomNavigationView.setOnItemSelectedListener(item ->{
 

@@ -34,7 +34,7 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-
+        holder.tv_username.setText(postList.get(position).getUsername());
         holder.tv_content.setText(postList.get(position).getContent());
         holder.tv_distance.setText(String.valueOf(postList.get(position).getDistance()));
         holder.tv_date.setText(String.valueOf(postList.get(position).getDate()));
@@ -56,7 +56,7 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             iv_avatar = itemView.findViewById (R.id.iv_avatar);
-            tv_username = itemView.findViewById(R.id.tv_username)
+            tv_username = itemView.findViewById(R.id.tv_username);
             tv_distance = itemView.findViewById(R.id.tv_distance);
             tv_content = itemView.findViewById(R.id.tv_content);
             tv_date = itemView.findViewById(R.id.tv_date);

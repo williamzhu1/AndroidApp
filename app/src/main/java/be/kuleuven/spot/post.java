@@ -2,13 +2,15 @@ package be.kuleuven.spot;
 
 public class post {
     private int id;
+    private String username;
     private String content;
     private int date;
-    private int distance;
+    private double distance;
     private String image;
 
-    public post(int id, String content, int date, int distance, String image) {
+    public post(int id, String username, String content, int date, double distance, String image) {
         this.id = id;
+        this.username = username;
         this.content = content;
         this.date = date;
         this.distance = distance;
@@ -19,6 +21,7 @@ public class post {
     public String toString() {
         return "post{" +
                 "id=" + id +
+                ", username=" + username + '\'' +
                 ", content='" + content + '\'' +
                 ", date=" + date +
                 ", distance=" + distance +
@@ -50,7 +53,7 @@ public class post {
         this.date = date;
     }
 
-    public int getDistance() {
+    public double getDistance() {
         return distance;
     }
 
@@ -64,5 +67,13 @@ public class post {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 }

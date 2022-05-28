@@ -94,7 +94,7 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_home, container, false);
-        fillpostlist();
+        dbpost();
         recyclerView = (RecyclerView) v.findViewById(R.id.lv_recycle);
         recyclerView.setHasFixedSize(true);
 
@@ -104,12 +104,6 @@ public class HomeFragment extends Fragment {
         mAdapter = new RecycleViewAdapter(postList, this.getActivity());
         recyclerView.setAdapter(mAdapter);
         return v;
-    }
-
-    private void fillpostlist(){
-        post p0 = new post (0,"Hello", 1652283743, 500, null);
-        post p1 = new post (1,"Kansamnida", 1652283767, 600, null);
-        postList.addAll(Arrays.asList(new post[]{p0, p1}));
     }
 
     private void dbpost(){
@@ -124,8 +118,10 @@ public class HomeFragment extends Fragment {
                     o = response.getJSONObject(0);
                     for (int i = 0; i < o.length(); i++) {
                         JSONObject obj = response.getJSONObject(i);
-                        post p = new post(obj.getString("id"));
-
+                        post p = new post(obj.getInt("id"), obj.getString("username"), obj.getString("content"), obj.getInt("time"),
+                                calculateDistance(obj.getDouble("latitude"),Double.valueOf(getActivity().getIntent().getExtras().getString("latitude")),
+                                        obj.getDouble("longitude"), Double.valueOf(getActivity().getIntent().getExtras().getString("longitude"))), null);
+                        postList.add(p);
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -140,6 +136,10 @@ public class HomeFragment extends Fragment {
         });
 
         requestQueue.add(messageRequest);
+    }
+
+    private double calculateDistance(double lat1, double lat2, double lon1, double lon2){
+        return lat1;
     }
 
 

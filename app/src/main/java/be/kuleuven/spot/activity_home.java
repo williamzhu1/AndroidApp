@@ -37,7 +37,6 @@ public class activity_home extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityHomeBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        replaceFragment(new HomeFragment());
         Bundle bundle = getIntent().getExtras();
 
         LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);

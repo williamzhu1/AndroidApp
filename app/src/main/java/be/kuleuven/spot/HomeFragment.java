@@ -29,7 +29,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.text.DecimalFormat;
+import java.math.BigDecimal;
 import java.math.RoundingMode;
 
 /**
@@ -43,8 +43,6 @@ public class HomeFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-
-    private static final DecimalFormat df = new DecimalFormat("0.00");
 
     private RecyclerView recyclerView;
     private RecyclerView.Adapter mAdapter;
@@ -178,9 +176,9 @@ public class HomeFragment extends Fragment {
         double a = Math.pow(Math.sin(dlat/2), 2)
                  + Math.cos(lat1) * Math.cos(lat2)
                  * Math.pow(Math.sin(dlon/2), 2);
-        double c = 2 * Math.asin(Math.sqrt(a));
-        df.setRoundingMode(RoundingMode.UP);
-        return (Double.parseDouble(df.format(c * 6371)));
+        double c = (2 * Math.asin(Math.sqrt(a))) * 6371;
+        BigDecimal bd = new BigDecimal(c).setScale(2,RoundingMode.HALF_UP);
+        return (bd.doubleValue());
     }
 
 

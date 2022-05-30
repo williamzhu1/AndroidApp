@@ -19,7 +19,7 @@
         android:orientation="vertical">
 
 
-        <de.hdodenhof.circleimageview.CircleImageView
+        <ImageView
             android:layout_width="110dp"
             android:layout_height="110dp"
             android:layout_marginTop="60dp"
@@ -145,6 +145,7 @@
         android:orientation="vertical" />
 
     <Button
+        android:id="@+id/btn_EditProfile"
         android:layout_width="wrap_content"
         android:layout_height="50dp"
         android:layout_gravity="center"
@@ -152,9 +153,10 @@
         android:layout_marginTop="100dp"
         android:drawableLeft="@drawable/ic_baseline_edit_24"
         android:gravity="center"
+        android:onClick="onBtnChangeProfileClicked"
         android:paddingLeft="10dp"
         android:text="Edit Profile Photo"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
         android:textSize="13dp" />
 
     <Button
@@ -169,7 +171,7 @@
         android:onClick="onClick"
         android:paddingLeft="10dp"
         android:text="Change Password"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
         android:textSize="13dp" />
 
 

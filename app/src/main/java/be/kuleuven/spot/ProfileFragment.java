@@ -13,6 +13,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link ProfileFragment#newInstance} factory method to
@@ -32,9 +34,12 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
     private TextView pf_username;
     private TextView pf_email;
     private Button btn_changePassword;
-
+    private Button btn_EditProfile;
     private String email;
     private String username;
+
+
+    private CircleImageView view;
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -61,7 +66,6 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
@@ -86,9 +90,14 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         btn_changePassword = (Button) getView().findViewById(R.id.btn_changePassword);
         btn_changePassword.setOnClickListener(this);
 
+        btn_EditProfile = (Button)getView().findViewById(R.id.btn_EditProfile);
+        btn_EditProfile.setOnClickListener(this::onBtnChangeProfileClicked);
+
         email = getActivity().getIntent().getExtras().getString("email");
         username = getActivity().getIntent().getExtras().getString("username");
         //Toast.makeText(getActivity(), email , Toast.LENGTH_LONG).show();
+
+
 
         pf_email.setText(email);
         pf_username.setText(username);
@@ -103,4 +112,12 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         intent.putExtras(getActivity().getIntent().getExtras());
         startActivity(intent);
     }
+
+    public void onBtnChangeProfileClicked(View view) {
+        Intent intent = new Intent(getActivity(), activity_changeProfile.class);
+        intent.putExtras(getActivity().getIntent().getExtras());
+        startActivity(intent);
+    }
+
+
 }

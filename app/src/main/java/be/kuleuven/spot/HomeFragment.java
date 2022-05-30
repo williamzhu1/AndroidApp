@@ -1,13 +1,17 @@
 package be.kuleuven.spot;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -25,6 +29,8 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.text.DecimalFormat;
+import java.math.RoundingMode;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -38,6 +44,8 @@ public class HomeFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
+    private static final DecimalFormat df = new DecimalFormat("0.00");
+
     private RecyclerView recyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
@@ -49,6 +57,8 @@ public class HomeFragment extends Fragment {
     List<post> postList = new ArrayList<post>();
     Button btn_addOne;
     private static final String checkMessages = "https://studev.groept.be/api/a21pt215/message_board";
+    double longitude, latitude;
+    String username;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -94,9 +104,28 @@ public class HomeFragment extends Fragment {
 
         layoutManager = new LinearLayoutManager(this.getActivity());
         recyclerView.setLayoutManager(layoutManager);
-        Log.d("tag", String.valueOf(postList.size()));
+        Log.d("ListSize", String.valueOf(postList.size()));
 
         return v;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        btn_addOne =(Button) getView().findViewById(R.id.btn_add_one);
+
+        btn_addOne.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), add_one.class);
+                Bundle bundle = getActivity().getIntent().getExtras();
+                bundle.putDouble("latitude",latitude);
+                bundle.putDouble("longitude",longitude);
+                intent.putExtras(bundle);
+                startActivity(intent);
+            }
+        });
     }
 
     private void dbpost(){
@@ -106,16 +135,20 @@ public class HomeFragment extends Fragment {
             @Override
             public void onResponse(JSONArray response) {
                 JSONObject o = null;
+                latitude = getActivity().getIntent().getExtras().getDouble("latitude");
+                longitude = getActivity().getIntent().getExtras().getDouble("longitude");
+                Log.d("latitude", String.valueOf(latitude));
                 try {
                     o = response.getJSONObject(0);
                     for (int i = 0; i < response.length(); i++) {
                         JSONObject obj = response.getJSONObject(i);
                         Log.d("tag",o.toString(4));
                         post p = new post(obj.getInt("id"), obj.getString("username"), obj.getString("content"), obj.getInt("time"),
-                                calculateDistance(obj.getDouble("latitude"), 50.5,
-                                        obj.getDouble("longitude"), 4.3), null);
-                        postList.add(p);
-                        Log.d("post", String.valueOf(postList.size()));
+                                calculateDistance(obj.getDouble("latitude"), latitude,
+                                        obj.getDouble("longitude"), longitude), null);
+                        if(p.getDistance() <= 10){
+                            postList.add(p);
+                        }
                     }
                     mAdapter = new RecycleViewAdapter(postList, getActivity());
                     recyclerView.setAdapter(mAdapter);
@@ -146,8 +179,8 @@ public class HomeFragment extends Fragment {
                  + Math.cos(lat1) * Math.cos(lat2)
                  * Math.pow(Math.sin(dlon/2), 2);
         double c = 2 * Math.asin(Math.sqrt(a));
-
-        return (c * 6371);
+        df.setRoundingMode(RoundingMode.UP);
+        return (Double.parseDouble(df.format(c * 6371)));
     }
 
 

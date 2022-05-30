@@ -16,6 +16,9 @@
             android:name=".activity_changePassword"
             android:exported="false" />
         <activity
+            android:name=".add_one"
+            android:exported="false" />
+        <activity
             android:name=".activity_home"
             android:exported="false" />
         <activity

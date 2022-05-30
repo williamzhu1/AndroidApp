@@ -28,9 +28,8 @@ import be.kuleuven.spot.databinding.ActivityMainBinding;
 
 public class activity_home extends AppCompatActivity {
 
-    private LocationManager locationManager;
-    private String longitude;
-    private String latitude;
+    double longitude, latitude;
+
 
     @NonNull ActivityHomeBinding binding;
     @Override
@@ -41,30 +40,30 @@ public class activity_home extends AppCompatActivity {
         replaceFragment(new HomeFragment());
         Bundle bundle = getIntent().getExtras();
 
-        locationManager = (LocationManager)getSystemService(LOCATION_SERVICE);
+        LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
 
-        if(ContextCompat.checkSelfPermission(activity_home.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
-            ContextCompat.checkSelfPermission(activity_home.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED)
+        if(ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
+                ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED)
         {
-            ActivityCompat.requestPermissions(activity_home.this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION,Manifest.permission.ACCESS_FINE_LOCATION},1);
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION,Manifest.permission.ACCESS_FINE_LOCATION},1);
         }
 
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 10, 1, new LocationListener() {
             @Override
             public void onLocationChanged(@NonNull Location location) {
-                longitude = String.valueOf(location.getLongitude());
-                latitude = String.valueOf(location.getLatitude());
-                Toast.makeText(activity_home.this, latitude, Toast.LENGTH_LONG).show();
-                bundle.putString("longitude",longitude);
-                bundle.putString("latitude",latitude);
+                longitude = Double.valueOf(location.getLongitude());
+                latitude = Double.valueOf(location.getLatitude());
             }
         });
-
         if(bundle.getBoolean("openProfile")){
             ProfileFragment profile = new ProfileFragment();
             profile.setArguments(bundle);
-            replaceFragment(new ProfileFragment());
+            replaceFragment(profile);
+        } else{
+            replaceFragment(new HomeFragment());
         }
+
+
 
         binding.bottomNavigationView.setOnItemSelectedListener(item ->{
 

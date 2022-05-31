@@ -25,6 +25,9 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+
 public class add_one extends AppCompatActivity {
 
     Button btn_publish, btn_cancel;
@@ -70,7 +73,11 @@ public class add_one extends AppCompatActivity {
             public void onClick(View view) {
                 String contentTyped = content.getText().toString();
                 Log.d("test", contentTyped);
-                publish(contentTyped);
+                try {
+                    publish(contentTyped);
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                }
                 pass();
             }
         });
@@ -90,12 +97,12 @@ public class add_one extends AppCompatActivity {
         intent.putExtras(bundle);
         startActivity(intent);
     }
-    private void publish(String contentTyped){
+    private void publish(String contentTyped) throws UnsupportedEncodingException {
         Long tsLong = System.currentTimeMillis()/1000;
         String ts = tsLong.toString();
         int time = Integer.parseInt(ts);
         username = getIntent().getExtras().getString("username");
-        String requestURL = insertUrl + username + "/" + contentTyped + "/" + time + "/" + latitude + "/" + longitude;
+        String requestURL = insertUrl + username + "/" + URLEncoder.encode(contentTyped, "UTF-8") + "/" + time + "/" + latitude + "/" + longitude;
         Log.d("requestURL", requestURL);
         requestQueue = Volley.newRequestQueue(this);
 

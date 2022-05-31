@@ -3,48 +3,12 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Downloads/Android Project/app/src/main/res/drawable-v24/ic__foreground.xml" value="0.157" />
-        <entry key="..\:/Downloads/Android Project/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1035" />
-        <entry key="..\:/Downloads/Android Project/app/src/main/res/drawable/ic__background.xml" value="0.157" />
-        <entry key="..\:/Downloads/Android Project/app/src/main/res/drawable/ic_baseline_edit_24.xml" value="0.1035" />
-        <entry key="..\:/Downloads/Android Project/app/src/main/res/drawable/ic_baseline_email_24.xml" value="0.1035" />
-        <entry key="..\:/Downloads/Android Project/app/src/main/res/drawable/ic_baseline_find_in_page_24.xml" value="0.18" />
-        <entry key="..\:/Downloads/Android Project/app/src/main/res/drawable/ic_baseline_home_24.xml" value="0.157" />
-        <entry key="..\:/Downloads/Android Project/app/src/main/res/drawable/ic_baseline_location_on_24.xml" value="0.157" />
-        <entry key="..\:/Downloads/Android Project/app/src/main/res/drawable/ic_baseline_lock_24.xml" value="0.1" />
-        <entry key="..\:/Downloads/Android Project/app/src/main/res/drawable/ic_baseline_person_24.xml" value="0.157" />
-        <entry key="..\:/Downloads/Android Project/app/src/main/res/drawable/ic_dashboard_black_24dp.xml" value="0.1" />
-        <entry key="..\:/Downloads/Android Project/app/src/main/res/drawable/ic_notifications_black_24dp.xml" value="0.1035" />
-        <entry key="..\:/Downloads/Android Project/app/src/main/res/drawable/ic_shusaku_background.xml" value="0.1035" />
-        <entry key="..\:/Downloads/Android Project/app/src/main/res/layout/activity_add_one.xml" value="0.3333333333333333" />
-        <entry key="..\:/Downloads/Android Project/app/src/main/res/layout/activity_change_password.xml" value="0.25" />
-        <entry key="..\:/Downloads/Android Project/app/src/main/res/layout/activity_change_profile.xml" value="0.16" />
-        <entry key="..\:/Downloads/Android Project/app/src/main/res/layout/activity_gps.xml" value="0.16197916666666667" />
-        <entry key="..\:/Downloads/Android Project/app/src/main/res/layout/activity_home.xml" value="0.16666666666666666" />
-        <entry key="..\:/Downloads/Android Project/app/src/main/res/layout/activity_login.xml" value="0.22" />
-        <entry key="..\:/Downloads/Android Project/app/src/main/res/layout/activity_main.xml" value="0.22" />
-        <entry key="..\:/Downloads/Android Project/app/src/main/res/layout/activity_make_post.xml" value="0.26145833333333335" />
-        <entry key="..\:/Downloads/Android Project/app/src/main/res/layout/activity_register.xml" value="0.22" />
-        <entry key="..\:/Downloads/Android Project/app/src/main/res/layout/fragment_change_password.xml" value="0.22" />
-        <entry key="..\:/Downloads/Android Project/app/src/main/res/layout/fragment_change_profile_photo.xml" value="0.26145833333333335" />
-        <entry key="..\:/Downloads/Android Project/app/src/main/res/layout/fragment_first.xml" value="0.1" />
-        <entry key="..\:/Downloads/Android Project/app/src/main/res/layout/fragment_home.xml" value="0.3333333333333333" />
-        <entry key="..\:/Downloads/Android Project/app/src/main/res/layout/fragment_map.xml" value="0.1" />
-        <entry key="..\:/Downloads/Android Project/app/src/main/res/layout/fragment_map_fragment.xml" value="0.1" />
-        <entry key="..\:/Downloads/Android Project/app/src/main/res/layout/fragment_notifications.xml" value="0.1" />
-        <entry key="..\:/Downloads/Android Project/app/src/main/res/layout/fragment_profile.xml" value="0.3333333333333333" />
-        <entry key="..\:/Downloads/Android Project/app/src/main/res/layout/fragment_profile_fragment.xml" value="0.10666666666666667" />
-        <entry key="..\:/Downloads/Android Project/app/src/main/res/layout/home_fragment.xml" value="0.1" />
-        <entry key="..\:/Downloads/Android Project/app/src/main/res/layout/one_post.xml" value="0.3333333333333333" />
-        <entry key="..\:/Downloads/Android Project/app/src/main/res/menu/bottom_nav_menu.xml" value="0.22" />
-        <entry key="..\:/Downloads/Android Project/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1055" />
-        <entry key="..\:/Downloads/Android Project/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.1055" />
-        <entry key="..\:/Downloads/Android Project/app/src/main/res/mipmap-anydpi-v26/ic_shusaku.xml" value="0.2325" />
-        <entry key="..\:/Downloads/Android Project/app/src/main/res/mipmap-anydpi-v26/ic_shusaku_round.xml" value="0.1" />
+        <entry key="..\:/Users/Code/Desktop/Github/SPOT/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.2985" />
         <entry key="..\:/Users/Code/Desktop/Github/SPOT/app/src/main/res/drawable/ic_dashboard_black_24dp.xml" value="0.2985" />
         <entry key="..\:/Users/Code/Desktop/Github/SPOT/app/src/main/res/drawable/ic_home_black_24dp.xml" value="0.2985" />
         <entry key="..\:/Users/Code/Desktop/Github/SPOT/app/src/main/res/drawable/ic_launcher_background.xml" value="0.2985" />
         <entry key="..\:/Users/Code/Desktop/Github/SPOT/app/src/main/res/drawable/ic_notifications_black_24dp.xml" value="0.2985" />
+        <entry key="..\:/Users/Code/Desktop/Github/SPOT/app/src/main/res/layout/activity_add_one.xml" value="0.358695652173913" />
         <entry key="..\:/Users/Code/Desktop/Github/SPOT/app/src/main/res/layout/activity_home.xml" value="0.35260416666666666" />
         <entry key="..\:/Users/Code/Desktop/Github/SPOT/app/src/main/res/layout/activity_login.xml" value="0.358695652173913" />
         <entry key="..\:/Users/Code/Desktop/Github/SPOT/app/src/main/res/layout/activity_main.xml" value="0.358695652173913" />
@@ -54,8 +18,37 @@
         <entry key="..\:/Users/Code/Desktop/Github/SPOT/app/src/main/res/layout/activity_register.xml" value="0.358695652173913" />
         <entry key="..\:/Users/Code/Desktop/Github/SPOT/app/src/main/res/layout/fragment_dashboard.xml" value="0.22" />
         <entry key="..\:/Users/Code/Desktop/Github/SPOT/app/src/main/res/layout/fragment_home.xml" value="0.33" />
+        <entry key="..\:/Users/Code/Desktop/Github/SPOT/app/src/main/res/layout/fragment_map.xml" value="0.35643115942028986" />
         <entry key="..\:/Users/Code/Desktop/Github/SPOT/app/src/main/res/layout/itemlayout_post.xml" value="0.358695652173913" />
         <entry key="..\:/Users/Code/Desktop/Github/SPOT/app/src/main/res/layout/main_dashboard.xml" value="0.358695652173913" />
+        <entry key="..\:/Users/Code/Desktop/Github/SPOT/app/src/main/res/layout/one_post.xml" value="0.33" />
+        <entry key="..\:/Users/Code/Desktop/Github/SPOT/app/src/main/res/menu/bottom_nav_menu.xml" value="0.1425925925925926" />
+        <entry key="..\:/Users/Code/Desktop/Github/SPOT/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.2985" />
+        <entry key="..\:/Users/Code/Desktop/Github/SPOT/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.2985" />
+        <entry key="..\:/Users/William/Desktop/School 2021-2022/Github/SPOT/app/src/main/res/drawable-v24/ic__foreground.xml" value="0.324" />
+        <entry key="..\:/Users/William/Desktop/School 2021-2022/Github/SPOT/app/src/main/res/drawable/ic__background.xml" value="0.324" />
+        <entry key="..\:/Users/William/Desktop/School 2021-2022/Github/SPOT/app/src/main/res/drawable/ic_baseline_edit_24.xml" value="0.324" />
+        <entry key="..\:/Users/William/Desktop/School 2021-2022/Github/SPOT/app/src/main/res/drawable/ic_baseline_email_24.xml" value="0.324" />
+        <entry key="..\:/Users/William/Desktop/School 2021-2022/Github/SPOT/app/src/main/res/drawable/ic_baseline_find_in_page_24.xml" value="0.324" />
+        <entry key="..\:/Users/William/Desktop/School 2021-2022/Github/SPOT/app/src/main/res/drawable/ic_baseline_home_24.xml" value="0.324" />
+        <entry key="..\:/Users/William/Desktop/School 2021-2022/Github/SPOT/app/src/main/res/drawable/ic_baseline_location_on_24.xml" value="0.324" />
+        <entry key="..\:/Users/William/Desktop/School 2021-2022/Github/SPOT/app/src/main/res/drawable/ic_baseline_lock_24.xml" value="0.332" />
+        <entry key="..\:/Users/William/Desktop/School 2021-2022/Github/SPOT/app/src/main/res/drawable/ic_baseline_person_24.xml" value="0.324" />
+        <entry key="..\:/Users/William/Desktop/School 2021-2022/Github/SPOT/app/src/main/res/drawable/ic_baseline_settings_24.xml" value="0.324" />
+        <entry key="..\:/Users/William/Desktop/School 2021-2022/Github/SPOT/app/src/main/res/drawable/ic_ibdjl95_speech_bubbles_1.xml" value="0.324" />
+        <entry key="..\:/Users/William/Desktop/School 2021-2022/Github/SPOT/app/src/main/res/drawable/ic_speech_bubble.xml" value="0.324" />
+        <entry key="..\:/Users/William/Desktop/School 2021-2022/Github/SPOT/app/src/main/res/layout/activity_add_one.xml" value="0.33" />
+        <entry key="..\:/Users/William/Desktop/School 2021-2022/Github/SPOT/app/src/main/res/layout/activity_change_password.xml" value="0.17447916666666666" />
+        <entry key="..\:/Users/William/Desktop/School 2021-2022/Github/SPOT/app/src/main/res/layout/activity_home.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/William/Desktop/School 2021-2022/Github/SPOT/app/src/main/res/layout/activity_login.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/William/Desktop/School 2021-2022/Github/SPOT/app/src/main/res/layout/activity_main.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/William/Desktop/School 2021-2022/Github/SPOT/app/src/main/res/layout/activity_register.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/William/Desktop/School 2021-2022/Github/SPOT/app/src/main/res/layout/dialog_fragment.xml" value="0.22135416666666666" />
+        <entry key="..\:/Users/William/Desktop/School 2021-2022/Github/SPOT/app/src/main/res/layout/fragment_dialog.xml" value="0.22" />
+        <entry key="..\:/Users/William/Desktop/School 2021-2022/Github/SPOT/app/src/main/res/layout/fragment_home.xml" value="0.33" />
+        <entry key="..\:/Users/William/Desktop/School 2021-2022/Github/SPOT/app/src/main/res/layout/fragment_map.xml" value="0.2" />
+        <entry key="..\:/Users/William/Desktop/School 2021-2022/Github/SPOT/app/src/main/res/layout/fragment_profile.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/William/Desktop/School 2021-2022/Github/SPOT/app/src/main/res/layout/one_post.xml" value="0.5" />
       </map>
     </option>
   </component>

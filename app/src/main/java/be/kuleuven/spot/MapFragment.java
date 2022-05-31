@@ -10,6 +10,8 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
@@ -52,6 +54,7 @@ public class MapFragment extends Fragment {
     private static final String checkMessages = "https://studev.groept.be/api/a21pt215/message_board";
     List<post> postList = new ArrayList<post>();
     private Marker marker;
+    DialogFragment popUp;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -76,13 +79,33 @@ public class MapFragment extends Fragment {
                     @Override
                     public boolean onMarkerClick(@NonNull Marker marker) {
                         Log.d("map", "click");
+                        popUp = new DialogFragment(1,"12","23","34234234",3.4,"2");
+                        showFragment(popUp);
+                        //int id, String username, String content, String date, double distance, String image
                         return false;
+                    }
+                });
+                googleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+                    @Override
+                    public void onMapClick(@NonNull LatLng latLng) {
+                        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                        fragmentTransaction.remove(popUp);
+                        fragmentTransaction.commit();
                     }
                 });
             }
         });
         return view;
     }
+
+    private void showFragment(Fragment fragment){
+        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.add(R.id.dialog_container,fragment);
+        fragmentTransaction.commit();
+    }
+
 
     private BitmapDescriptor bitmapDescriptorFromVector(Context context, int vectorResId) {
         Drawable vectorDrawable = ContextCompat.getDrawable(context, vectorResId);

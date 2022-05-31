@@ -13,8 +13,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
-
 import java.util.List;
 
 public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.MyViewHolder> {
@@ -61,11 +59,11 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-            iv_avatar = itemView.findViewById (R.id.profilePhoto);
-            tv_username = itemView.findViewById(R.id.tv_username);
-            tv_distance = itemView.findViewById(R.id.tv_distance);
-            tv_content = itemView.findViewById(R.id.tv_content);
-            tv_date = itemView.findViewById(R.id.tv_date);
+            iv_avatar = itemView.findViewById (R.id.dialogProfile);
+            tv_username = itemView.findViewById(R.id.dialog_username);
+            tv_distance = itemView.findViewById(R.id.dialog_distance);
+            tv_content = itemView.findViewById(R.id.dialog_content);
+            tv_date = itemView.findViewById(R.id.dialog_date);
         }
     }
 }

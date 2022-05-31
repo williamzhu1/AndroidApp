@@ -1,16 +1,11 @@
 package be.kuleuven.spot;
 
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.Matrix;
-import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Base64;
@@ -19,11 +14,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
@@ -38,11 +30,12 @@ public class activity_changeProfile extends AppCompatActivity {
     private ImageView image;
     private Button setNewProfile;
     private RequestQueue requestQueue;
-    private static String POST_URL = "https://studev.groept.be/api/a21pt215/insertImage/";
-    private static final String GET_IMAGE_URL = "";
-    private int PICK_IMAGE_REQUEST = 111;
+    private static final String POST_URL = "https://studev.groept.be/api/a21pt215/insertImage/";
+    private final int PICK_IMAGE_REQUEST = 111;
     private Bitmap bitmap;
     private ProgressDialog progressDialog;
+    Bundle bundle;
+    public manageLocation manageLocation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +45,10 @@ public class activity_changeProfile extends AppCompatActivity {
         setNewProfile = (Button)findViewById(R.id.setNewProfile);
         requestQueue = Volley.newRequestQueue(this);
         setNewProfile.setEnabled(false);
+        bundle = getIntent().getExtras();
+        double latitude = bundle.getDouble("latitude");
+        double longitude = bundle.getDouble("longitude");
+        manageLocation = new manageLocation(this,longitude,latitude);
     }
     public void onBtnPickClicked(View caller)
     {
@@ -121,32 +118,24 @@ public class activity_changeProfile extends AppCompatActivity {
         System.out.println("success" + imageString);
         //POST_URL = POST_URL + getIntent().getExtras().getString("username") + "/";
 
-        //Execute the Volley call. Note that we are not appending the image string to the URL, that happens further below
-        StringRequest submitRequest = new StringRequest (Request.Method.POST, POST_URL,  new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                //Turn the progress widget off
-                progressDialog.dismiss();
-                Toast.makeText(activity_changeProfile.this, "Post request executed", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(activity_changeProfile.this, activity_home.class);
-                Bundle bundle = new Bundle();
-                bundle = getIntent().getExtras();
-                bundle.putBoolean("openProfile",true);
-                intent.putExtras(bundle);
-                startActivity(intent);
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(activity_changeProfile.this, "Post request failed", Toast.LENGTH_LONG).show();
-            }
-        }) { //NOTE THIS PART: here we are passing the parameter to the webservice, NOT in the URL!
+        StringRequest submitRequest = new StringRequest (Request.Method.POST, POST_URL, response -> {
+            //Turn the progress widget off
+            progressDialog.dismiss();
+            Toast.makeText(activity_changeProfile.this, "Post request executed", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(activity_changeProfile.this, activity_home.class);
+            bundle = getIntent().getExtras();
+            bundle.putBoolean("openProfile",true);
+            bundle.putDouble("latitude", manageLocation.getLatitude());
+            bundle.putDouble("longitude",manageLocation.getLongitude());
+            intent.putExtras(bundle);
+            startActivity(intent);
+        }, error -> Toast.makeText(activity_changeProfile.this, "Post request failed", Toast.LENGTH_LONG).show()) {
 
             @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
+            protected Map<String, String> getParams() {
 
                 String username = getIntent().getExtras().getString("username");
-                Map<String, String> params = new HashMap<String, String>();
+                Map<String, String> params = new HashMap<>();
                 params.put("username", username);
                 params.put("image", imageString);
 

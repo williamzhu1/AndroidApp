@@ -1,22 +1,16 @@
 package be.kuleuven.spot;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
@@ -27,12 +21,14 @@ public class activity_changePassword extends AppCompatActivity {
     EditText confirmPassword;
     Button changePassword;
 
-    String currentPasswordInDatabse;
+    String currentPasswordInDatabase;
     String email;
     String username;
 
-    private RequestQueue requestQueue;
     String updatePasswordUrl = "https://studev.groept.be/api/a21pt215/updatePassword/";
+
+    Bundle bundle;
+    public manageLocation manageLocation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,9 +40,13 @@ public class activity_changePassword extends AppCompatActivity {
         confirmPassword = (EditText) findViewById(R.id.confirmNewPassword);
         changePassword = (Button) findViewById(R.id.btn_changePassword);
 
-       currentPasswordInDatabse = getIntent().getExtras().getString("password");
-       email = getIntent().getExtras().getString("email");
-       username = getIntent().getExtras().getString("username");
+        currentPasswordInDatabase = getIntent().getExtras().getString("password");
+        email = getIntent().getExtras().getString("email");
+        username = getIntent().getExtras().getString("username");
+        bundle = getIntent().getExtras();
+        double latitude = bundle.getDouble("latitude");
+        double longitude = bundle.getDouble("longitude");
+        manageLocation = new manageLocation(this,longitude,latitude);
     }
 
     public void onBtn_changePassword_clicked(View caller) {
@@ -58,7 +58,7 @@ public class activity_changePassword extends AppCompatActivity {
         String updatePasswordUrl_request = updatePasswordUrl + newPassword + "/" + email;
 
         //If the current password matches.
-        if(currentPasswordTyped.equals(currentPasswordInDatabse)){
+        if(currentPasswordTyped.equals(currentPasswordInDatabase)){
             //Toast.makeText(activity_changePassword.this, "Current password is correct", Toast.LENGTH_LONG).show();
 
             //if new password is longer than 8
@@ -69,30 +69,23 @@ public class activity_changePassword extends AppCompatActivity {
             //if new password and the confirmation matches.
             if (newPassword.equals(confirmPassword)) {
                 //updates the database with the new password
-                requestQueue = Volley.newRequestQueue(this);
+                RequestQueue requestQueue = Volley.newRequestQueue(this);
                 StringRequest submitRequest = new StringRequest(Request.Method.GET, updatePasswordUrl_request,
-                        new Response.Listener<String>(){
-                            @Override
-                            public void onResponse(String response) {
-                                Toast.makeText(activity_changePassword.this, "Password has been updated", Toast.LENGTH_LONG).show();
-                                Intent intent = new Intent(activity_changePassword.this, activity_home.class);
-                                intent.putExtras(getIntent().getExtras());
-                                intent.putExtra("openProfile", true);
-                                startActivity(intent);
-                            }
+                        response -> {
+                            Toast.makeText(activity_changePassword.this, "Password has been updated", Toast.LENGTH_LONG).show();
+                            Intent intent = new Intent(activity_changePassword.this, activity_home.class);
+                            intent.putExtras(getIntent().getExtras());
+                            bundle.putDouble("latitude", manageLocation.getLatitude());
+                            bundle.putDouble("longitude",manageLocation.getLongitude());
+                            intent.putExtra("openProfile", true);
+                            startActivity(intent);
                         },
 
-                        new Response.ErrorListener(){
-                            @Override
-                            public void onErrorResponse(VolleyError error) {
-                                Toast.makeText(activity_changePassword.this, "Unable to update password", Toast.LENGTH_LONG).show();
-                            }
-                        }
+                        error -> Toast.makeText(activity_changePassword.this, "Unable to update password", Toast.LENGTH_LONG).show()
                 );
                 requestQueue.add(submitRequest);
             }else{
                 Toast.makeText(activity_changePassword.this, "Password confirmation does not match. Please try again", Toast.LENGTH_LONG).show();
-                return;
             }
 
 

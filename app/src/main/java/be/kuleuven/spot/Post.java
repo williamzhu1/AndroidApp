@@ -1,16 +1,17 @@
 package be.kuleuven.spot;
 
-import java.text.SimpleDateFormat;
 
-public class post {
+import androidx.annotation.NonNull;
+
+public class Post {
     private int id;
-    private String username;
-    private String content;
-    private String date;
-    private double distance;
-    private String image;
+    private final String username;
+    private final String content;
+    private final String date;
+    private final double distance;
+    private final String image;
 
-    public post(int id, String username, String content, String date, double distance, String image) {
+    public Post(int id, String username, String content, String date, double distance, String image) {
         this.id = id;
         this.username = username;
         this.content = content;
@@ -20,6 +21,7 @@ public class post {
         System.out.println("success" + image);
     }
 
+    @NonNull
     @Override
     public String toString() {
         return "post{" +
@@ -44,39 +46,20 @@ public class post {
         return content;
     }
 
-    public void setContent(String content) {
-        this.content = content;
-    }
-
     public String getDate() {
         return date;
-    }
-
-    public void setDate(String date) {
-        this.date = date;
     }
 
     public double getDistance() {
         return distance;
     }
 
-    public void setDistance(int distance) {
-        this.distance = distance;
-    }
-
     public String getImage() {
         return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
     }
 
     public String getUsername() {
         return username;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
 }

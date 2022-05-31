@@ -43,7 +43,7 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
         holder.iv_avatar.setImageBitmap(bitmap2);
         holder.tv_username.setText(postList.get(position).getUsername());
         holder.tv_content.setText(postList.get(position).getContent());
-        holder.tv_distance.setText(String.valueOf(postList.get(position).getDistance()));
+        holder.tv_distance.setText("Distance: "+ String.valueOf(postList.get(position).getDistance()) + "km");
         holder.tv_date.setText(String.valueOf(postList.get(position).getDate()));
     }
 

@@ -8,6 +8,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import android.Manifest;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
@@ -45,6 +46,7 @@ public class activity_login extends AppCompatActivity {
     private EditText inputEmail_login;
     private EditText inputPassword_login;
     private TextView DoNotHaveAccount;
+    private ProgressDialog progressDialog;
 
     private RequestQueue requestQueue;
     private static final String checkEmailExistUrl = "https://studev.groept.be/api/a21pt215/ifEmailExist/";
@@ -64,6 +66,10 @@ public class activity_login extends AppCompatActivity {
         inputPassword_login = (EditText) findViewById(R.id.inputPassword_login);
         locationManager = (LocationManager)getSystemService(LOCATION_SERVICE);
 
+        progressDialog = new ProgressDialog(activity_login.this);
+        progressDialog.setMessage("Uploading, please wait...");
+        progressDialog.show();
+
         if(ContextCompat.checkSelfPermission(activity_login.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
                 ContextCompat.checkSelfPermission(activity_login.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED)
         {
@@ -75,6 +81,7 @@ public class activity_login extends AppCompatActivity {
             public void onLocationChanged(@NonNull Location location) {
                 longitude = Double.valueOf(location.getLongitude());
                 latitude = Double.valueOf(location.getLatitude());
+                progressDialog.dismiss();
             }
         });
     }
@@ -107,6 +114,7 @@ public class activity_login extends AppCompatActivity {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
+
 
                 String username = info;
                 Intent intent = new Intent(activity_login.this, activity_home.class);

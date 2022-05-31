@@ -67,7 +67,7 @@ public class activity_login extends AppCompatActivity {
         locationManager = (LocationManager)getSystemService(LOCATION_SERVICE);
 
         progressDialog = new ProgressDialog(activity_login.this);
-        progressDialog.setMessage("Uploading, please wait...");
+        progressDialog.setMessage("Loading, please wait...");
         progressDialog.show();
 
         if(ContextCompat.checkSelfPermission(activity_login.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED &&

@@ -52,9 +52,9 @@ public class MapFragment extends Fragment {
     double latitude, longitude;
     private RequestQueue requestQueue;
     private static final String checkMessages = "https://studev.groept.be/api/a21pt215/message_board";
-    List<post> postList = new ArrayList<post>();
+    List<post> postList = new ArrayList<>();
     private Marker marker;
-    DialogFragment popUp;
+    DialogFragment popUp = null;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -65,36 +65,29 @@ public class MapFragment extends Fragment {
         SupportMapFragment supportMapFragment = (SupportMapFragment)
                 getChildFragmentManager().findFragmentById(R.id.google_map);
         //Async map
-        supportMapFragment.getMapAsync(new OnMapReadyCallback() {
-            @Override
-            public void onMapReady(@NonNull GoogleMap googleMap) {
-                //Map loaded
-                latitude = getActivity().getIntent().getExtras().getDouble("latitude");
-                longitude = getActivity().getIntent().getExtras().getDouble("longitude");
-                LatLng here = new LatLng(latitude,longitude);
-                googleMap.addMarker(new MarkerOptions().position(here).title("You are here").zIndex(999));
-                googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(here,12));
-                dbpost(googleMap);
-                googleMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
-                    @Override
-                    public boolean onMarkerClick(@NonNull Marker marker) {
-                        Log.d("map", "click");
-                        popUp = new DialogFragment(1,"12","23","34234234",3.4,"2");
+        supportMapFragment.getMapAsync(googleMap -> {
+            //Map loaded
+            latitude = getActivity().getIntent().getExtras().getDouble("latitude");
+            longitude = getActivity().getIntent().getExtras().getDouble("longitude");
+            LatLng here = new LatLng(latitude,longitude);
+            googleMap.addMarker(new MarkerOptions().position(here).title("You are here").zIndex(999));
+            googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(here,12));
+            dbpost(googleMap);
+            googleMap.setOnMarkerClickListener(marker -> {
+                if(marker.getTitle().equals("You are here")){
+                    return false;
+                }
+                deleteFragment();
+                for(int i=0; i<postList.size(); i++){
+                    if(postList.get(i).getId() == Integer.parseInt(marker.getTitle())){
+                        popUp = new DialogFragment(postList.get(i).getId(),postList.get(i).getUsername(),postList.get(i).getContent()
+                                ,postList.get(i).getDate(),postList.get(i).getDistance(),postList.get(i).getImage());
                         showFragment(popUp);
-                        //int id, String username, String content, String date, double distance, String image
-                        return false;
                     }
-                });
-                googleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
-                    @Override
-                    public void onMapClick(@NonNull LatLng latLng) {
-                        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                        fragmentTransaction.remove(popUp);
-                        fragmentTransaction.commit();
-                    }
-                });
-            }
+                }
+                return true;
+            });
+            googleMap.setOnMapClickListener(latLng -> deleteFragment());
         });
         return view;
     }
@@ -104,6 +97,15 @@ public class MapFragment extends Fragment {
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.add(R.id.dialog_container,fragment);
         fragmentTransaction.commit();
+    }
+
+    private void deleteFragment(){
+        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        if(popUp != null){
+            fragmentTransaction.remove(popUp);
+            fragmentTransaction.commit();
+        }
     }
 
 
@@ -119,39 +121,31 @@ public class MapFragment extends Fragment {
     private void dbpost(GoogleMap googleMap){
         requestQueue = Volley.newRequestQueue(this.getActivity());
         activity_home activity = (activity_home) getActivity();
-        JsonArrayRequest messageRequest = new JsonArrayRequest(Request.Method.GET,checkMessages,null,new Response.Listener<JSONArray>() {
-            @Override
-            public void onResponse(JSONArray response) {
-                try {
-                    for (int i = 0; i < response.length(); i++) {
-                        JSONObject obj = response.getJSONObject(i);
-                        SimpleDateFormat format = new SimpleDateFormat ("yyyy-MM-dd 'at' hh a zzz");
-                        Date date = new Date(Long.parseLong(obj.getString("time")) * 1000);
-                        LatLng location = new LatLng(obj.getDouble("latitude"),obj.getDouble("longitude"));
-                        post p = new post(obj.getInt("id"), obj.getString("username"), obj.getString("content"),
-                                format.format(date),
-                                calculateDistance(obj.getDouble("latitude"), latitude,
-                                        obj.getDouble("longitude"), longitude), obj.getString("image"));
-                        if(p.getDistance() <= 10){
-                            postList.add(p);
-                            googleMap.addMarker(new MarkerOptions().position(location)
-                                    .title(obj.getString("id"))
-                                    .icon(bitmapDescriptorFromVector(getActivity(),R.drawable.ic_speech_bubble)));
-                        }
+        JsonArrayRequest messageRequest = new JsonArrayRequest(Request.Method.GET,checkMessages,null, response -> {
+            try {
+                for (int i = 0; i < response.length(); i++) {
+                    JSONObject obj = response.getJSONObject(i);
+                    SimpleDateFormat format = new SimpleDateFormat ("yyyy-MM-dd 'at' hh a zzz");
+                    Date date = new Date(Long.parseLong(obj.getString("time")) * 1000);
+                    LatLng location = new LatLng(obj.getDouble("latitude"),obj.getDouble("longitude"));
+                    post p = new post(obj.getInt("id"), obj.getString("username"), obj.getString("content"),
+                            format.format(date),
+                            calculateDistance(obj.getDouble("latitude"), latitude,
+                                    obj.getDouble("longitude"), longitude), obj.getString("image"));
+                    if(p.getDistance() <= 10){
+                        postList.add(p);
+                        googleMap.addMarker(new MarkerOptions().position(location)
+                                .title(obj.getString("id"))
+                                .icon(bitmapDescriptorFromVector(getActivity(),R.drawable.ic_speech_bubble)));
                     }
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
                 }
 
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
 
-            }
-        },  new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getActivity(), "Unable to communicate with the server", Toast.LENGTH_LONG).show();
-            }
-        });
+
+        }, error -> Toast.makeText(getActivity(), "Unable to communicate with the server", Toast.LENGTH_LONG).show());
 
         requestQueue.add(messageRequest);
     }

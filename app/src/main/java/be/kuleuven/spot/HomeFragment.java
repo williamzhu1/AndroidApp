@@ -62,7 +62,6 @@ public class HomeFragment extends Fragment {
     Button btn_addOne;
     private static final String checkMessages = "https://studev.groept.be/api/a21pt215/message_board";
     double longitude, latitude;
-    String username;
 
     public HomeFragment() {
         // Required empty public constructor

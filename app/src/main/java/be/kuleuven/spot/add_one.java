@@ -95,7 +95,7 @@ public class add_one extends AppCompatActivity {
         String ts = tsLong.toString();
         int time = Integer.parseInt(ts);
         username = getIntent().getExtras().getString("username");
-        String requestURL = insertUrl + username + "/" + contentTyped + "/" + time + "/" + latitude + "/" + longitude  ;
+        String requestURL = insertUrl + username + "/" + contentTyped + "/" + time + "/" + latitude + "/" + longitude;
         Log.d("requestURL", requestURL);
         requestQueue = Volley.newRequestQueue(this);
 

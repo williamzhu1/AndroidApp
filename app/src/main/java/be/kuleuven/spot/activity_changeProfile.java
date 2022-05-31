@@ -64,7 +64,6 @@ public class activity_changeProfile extends AppCompatActivity {
     }
 
 
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -87,6 +86,7 @@ public class activity_changeProfile extends AppCompatActivity {
                 e.printStackTrace();
             }
         }
+
     }
 
     public static Bitmap centerCrop(Bitmap srcBmp) {
@@ -147,8 +147,8 @@ public class activity_changeProfile extends AppCompatActivity {
 
                 String username = getIntent().getExtras().getString("username");
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("image", imageString);
                 params.put("username", username);
+                params.put("image", imageString);
 
                 return params;
             }

@@ -1,7 +1,10 @@
 package be.kuleuven.spot;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -150,7 +153,7 @@ public class HomeFragment extends Fragment {
                         post p = new post(obj.getInt("id"), obj.getString("username"), obj.getString("content"),
                                 format.format(date),
                                 calculateDistance(obj.getDouble("latitude"), latitude,
-                                        obj.getDouble("longitude"), longitude), null);
+                                        obj.getDouble("longitude"), longitude), obj.getString("image"));
                         if(p.getDistance() <= 10){
                             postList.add(p);
                         }
@@ -187,8 +190,6 @@ public class HomeFragment extends Fragment {
         BigDecimal bd = new BigDecimal(c).setScale(2,RoundingMode.HALF_UP);
         return (bd.doubleValue());
     }
-
-
 
 
 }

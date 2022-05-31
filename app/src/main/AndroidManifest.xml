@@ -13,11 +13,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SPOT">
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyBhoNwv91HYmnkW2TjOsrYEGAka5lUhDHk"/>
+
         <activity
             android:name=".activity_changeProfile"
-            android:exported="false" />
-        <activity
-            android:name=".GPS"
             android:exported="false" />
         <activity
             android:name=".activity_changePassword"

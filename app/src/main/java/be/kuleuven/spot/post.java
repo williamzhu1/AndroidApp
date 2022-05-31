@@ -1,14 +1,16 @@
 package be.kuleuven.spot;
 
+import java.text.SimpleDateFormat;
+
 public class post {
     private int id;
     private String username;
     private String content;
-    private int date;
+    private String date;
     private double distance;
     private String image;
 
-    public post(int id, String username, String content, int date, double distance, String image) {
+    public post(int id, String username, String content, String date, double distance, String image) {
         this.id = id;
         this.username = username;
         this.content = content;
@@ -45,11 +47,11 @@ public class post {
         this.content = content;
     }
 
-    public int getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(int date) {
+    public void setDate(String date) {
         this.date = date;
     }
 

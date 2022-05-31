@@ -27,7 +27,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -141,7 +144,11 @@ public class HomeFragment extends Fragment {
                     for (int i = 0; i < response.length(); i++) {
                         JSONObject obj = response.getJSONObject(i);
                         Log.d("tag",o.toString(4));
-                        post p = new post(obj.getInt("id"), obj.getString("username"), obj.getString("content"), obj.getInt("time"),
+                        SimpleDateFormat format = new SimpleDateFormat ("yyyy-MM-dd 'at' hh a zzz");
+                        Date date = new Date(Long.parseLong(obj.getString("time")) * 1000);
+                        Log.d("date", String.valueOf(date));
+                        post p = new post(obj.getInt("id"), obj.getString("username"), obj.getString("content"),
+                                format.format(date),
                                 calculateDistance(obj.getDouble("latitude"), latitude,
                                         obj.getDouble("longitude"), longitude), null);
                         if(p.getDistance() <= 10){

@@ -15,6 +15,7 @@ public class post {
         this.date = date;
         this.distance = distance;
         this.image = image;
+        System.out.println("success" + image);
     }
 
     @Override

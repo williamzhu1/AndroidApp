@@ -8,23 +8,14 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-
 import android.Manifest;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
-import android.view.MenuItem;
-import android.widget.EditText;
-import android.widget.Toast;
-
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.navigation.NavigationBarView;
 
 import be.kuleuven.spot.databinding.ActivityHomeBinding;
-import be.kuleuven.spot.databinding.ActivityMainBinding;
 
 public class activity_home extends AppCompatActivity {
 
@@ -76,7 +67,7 @@ public class activity_home extends AppCompatActivity {
                 case R.id.map:
                     replaceFragment(new MapFragment());
                     break;
-                case R.id.profile:
+                case R.id.imageProfile:
                     ProfileFragment profile = new ProfileFragment();
                     profile.setArguments(bundle);
                     replaceFragment(profile);

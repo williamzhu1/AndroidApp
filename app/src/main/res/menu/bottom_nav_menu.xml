@@ -9,7 +9,7 @@
         android:title="Map"
         android:icon="@drawable/ic_baseline_location_on_24"/>
     <item
-        android:id="@+id/profile"
+        android:id="@+id/imageProfile"
         android:title="Profile"
         android:icon="@drawable/ic_baseline_person_24"/>
 </menu>

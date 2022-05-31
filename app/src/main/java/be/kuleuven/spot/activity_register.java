@@ -88,7 +88,7 @@ public class activity_register extends AppCompatActivity {
 
     public void passRegistrationData(String username, String email, String password, String confirmPassword){
         //Log.d("Database","Creating request");
-        String requestURL = insertUrl + username + "/" + email + "/" + password;
+        String requestURL = insertUrl + username + "/" + email + "/" + password + "/" + username;
         //Log.d("Database","Creating request");
 
         StringRequest submitRequest = new StringRequest(Request.Method.GET, requestURL,

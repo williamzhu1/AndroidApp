@@ -1,6 +1,9 @@
 package be.kuleuven.spot;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,11 +37,14 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+        System.out.println("ahoahoaho" + postList.get(position).getImage());
+        byte[] imageBytes = Base64.decode( postList.get(position).getImage(), Base64.DEFAULT );
+        Bitmap bitmap2 = BitmapFactory.decodeByteArray( imageBytes, 0, imageBytes.length );
+        holder.iv_avatar.setImageBitmap(bitmap2);
         holder.tv_username.setText(postList.get(position).getUsername());
         holder.tv_content.setText(postList.get(position).getContent());
         holder.tv_distance.setText(String.valueOf(postList.get(position).getDistance()));
         holder.tv_date.setText(String.valueOf(postList.get(position).getDate()));
-        Glide.with(this.context).load("http://goo.gl/gEgYUd").into(holder.iv_avatar);
     }
 
     @Override
@@ -55,7 +61,7 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-            iv_avatar = itemView.findViewById (R.id.iv_avatar);
+            iv_avatar = itemView.findViewById (R.id.profilePhoto);
             tv_username = itemView.findViewById(R.id.tv_username);
             tv_distance = itemView.findViewById(R.id.tv_distance);
             tv_content = itemView.findViewById(R.id.tv_content);

@@ -19,25 +19,25 @@
             android:value="AIzaSyBhoNwv91HYmnkW2TjOsrYEGAka5lUhDHk"/>
 
         <activity
-            android:name=".activity_changeProfile"
+            android:name=".activity.activity_changeProfile"
             android:exported="false" />
         <activity
-            android:name=".activity_changePassword"
+            android:name=".activity.activity_changePassword"
             android:exported="false" />
         <activity
-            android:name=".add_one"
+            android:name=".activity.activity_add_one"
             android:exported="false" />
         <activity
-            android:name=".activity_home"
+            android:name=".activity.activity_home"
             android:exported="false" />
         <activity
-            android:name=".activity_register"
+            android:name=".activity.activity_register"
             android:exported="false" />
         <activity
-            android:name=".activity_login"
+            android:name=".activity.activity_login"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".activity.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

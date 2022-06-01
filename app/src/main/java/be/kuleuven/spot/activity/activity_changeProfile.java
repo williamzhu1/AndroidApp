@@ -1,4 +1,4 @@
-package be.kuleuven.spot;
+package be.kuleuven.spot.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -25,6 +25,9 @@ import java.util.Map;
 
 import java.lang.*;
 
+import be.kuleuven.spot.R;
+import be.kuleuven.spot.objects.manageLocation;
+
 public class activity_changeProfile extends AppCompatActivity {
 
     private ImageView image;
@@ -35,7 +38,7 @@ public class activity_changeProfile extends AppCompatActivity {
     private Bitmap bitmap;
     private ProgressDialog progressDialog;
     Bundle bundle;
-    public manageLocation manageLocation;
+    public be.kuleuven.spot.objects.manageLocation manageLocation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

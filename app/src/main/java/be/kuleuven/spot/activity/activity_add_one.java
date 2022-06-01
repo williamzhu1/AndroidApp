@@ -1,4 +1,4 @@
-package be.kuleuven.spot;
+package be.kuleuven.spot.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -17,7 +17,10 @@ import com.android.volley.toolbox.Volley;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
-public class add_one extends AppCompatActivity {
+import be.kuleuven.spot.R;
+import be.kuleuven.spot.objects.manageLocation;
+
+public class activity_add_one extends AppCompatActivity {
 
     Button btn_publish, btn_cancel;
 
@@ -25,7 +28,7 @@ public class add_one extends AppCompatActivity {
     EditText content;
     private final static String insertUrl = "https://studev.groept.be/api/a21pt215/insertMessage/";
     Bundle bundle;
-    private manageLocation manageLocation;
+    private be.kuleuven.spot.objects.manageLocation manageLocation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +58,7 @@ public class add_one extends AppCompatActivity {
         btn_cancel.setOnClickListener(view -> pass());
     }
     private void pass(){
-        Intent intent = new Intent(add_one.this, activity_home.class );
+        Intent intent = new Intent(activity_add_one.this, activity_home.class );
         Bundle bundle = getIntent().getExtras();
         bundle.putBoolean("openProfile", false);
         bundle.putDouble("latitude",manageLocation.getLatitude());
@@ -70,6 +73,9 @@ public class add_one extends AppCompatActivity {
         username = getIntent().getExtras().getString("username");
         if(contentTyped.length() >= 255){
             Toast.makeText(this, "Type at most 255 characters" , Toast.LENGTH_LONG).show();
+        }
+        if(contentTyped.length() == 0){
+            Toast.makeText(this, "Please type something" , Toast.LENGTH_LONG).show();
         }
         String requestURL = insertUrl + username + "/" + URLEncoder.encode(contentTyped, "UTF-8") + "/" +
                 time + "/" + manageLocation.getLatitude() + "/" + manageLocation.getLongitude();

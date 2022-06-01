@@ -1,4 +1,4 @@
-package be.kuleuven.spot;
+package be.kuleuven.spot.fragment;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -28,6 +28,14 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import be.kuleuven.spot.objects.Post;
+import be.kuleuven.spot.R;
+import be.kuleuven.spot.objects.RecycleViewAdapter;
+import be.kuleuven.spot.activity.activity_add_one;
+import be.kuleuven.spot.activity.activity_home;
+import be.kuleuven.spot.objects.calculateDistance;
+import be.kuleuven.spot.objects.manageLocation;
 
 public class HomeFragment extends Fragment {
 
@@ -75,7 +83,7 @@ public class HomeFragment extends Fragment {
         btn_addOne = (Button) requireView().findViewById(R.id.btn_add_one);
 
         btn_addOne.setOnClickListener(view1 -> {
-            Intent intent = new Intent(getActivity(), add_one.class);
+            Intent intent = new Intent(getActivity(), activity_add_one.class);
             Bundle bundle = requireActivity().getIntent().getExtras();
             bundle.putDouble("latitude",manageLocation.getLatitude());
             bundle.putDouble("longitude",manageLocation.getLongitude());

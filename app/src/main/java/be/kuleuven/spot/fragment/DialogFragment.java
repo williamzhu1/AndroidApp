@@ -1,4 +1,4 @@
-package be.kuleuven.spot;
+package be.kuleuven.spot.fragment;
 
 import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import be.kuleuven.spot.R;
 
 
 public class DialogFragment extends Fragment {

@@ -1,4 +1,4 @@
-package be.kuleuven.spot;
+package be.kuleuven.spot.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -14,6 +14,9 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+import be.kuleuven.spot.R;
+import be.kuleuven.spot.objects.manageLocation;
+
 public class activity_changePassword extends AppCompatActivity {
 
     EditText currentPassword;
@@ -28,7 +31,7 @@ public class activity_changePassword extends AppCompatActivity {
     String updatePasswordUrl = "https://studev.groept.be/api/a21pt215/updatePassword/";
 
     Bundle bundle;
-    public manageLocation manageLocation;
+    public be.kuleuven.spot.objects.manageLocation manageLocation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

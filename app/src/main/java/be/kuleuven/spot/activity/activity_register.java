@@ -1,4 +1,4 @@
-package be.kuleuven.spot;
+package be.kuleuven.spot.activity;
 
 import static java.lang.Integer.parseInt;
 
@@ -19,6 +19,9 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import be.kuleuven.spot.R;
+import be.kuleuven.spot.objects.manageLocation;
+
 
 public class activity_register extends AppCompatActivity {
 
@@ -32,7 +35,7 @@ public class activity_register extends AppCompatActivity {
     private static final String checkUsernameExistUrl = "https://studev.groept.be/api/a21pt215/ifUsernameExist/";
     private static final String checkEmailExistUrl = "https://studev.groept.be/api/a21pt215/ifEmailExist/";
     Bundle bundle;
-    private manageLocation manageLocation;
+    private be.kuleuven.spot.objects.manageLocation manageLocation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +54,9 @@ public class activity_register extends AppCompatActivity {
     public void onAlreadyHaveAccount_Clicked(View caller) {
 
         Intent intent = new Intent(this, activity_login.class);
+        bundle.putDouble("latitude", manageLocation.getLatitude());
+        bundle.putDouble("longitude",manageLocation.getLongitude());
+        intent.putExtras(bundle);
         startActivity(intent);
     }
 

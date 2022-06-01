@@ -1,4 +1,4 @@
-package be.kuleuven.spot;
+package be.kuleuven.spot.objects;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;

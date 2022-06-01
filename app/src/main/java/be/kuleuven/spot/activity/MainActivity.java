@@ -1,16 +1,19 @@
-package be.kuleuven.spot;
+package be.kuleuven.spot.activity;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import be.kuleuven.spot.R;
+import be.kuleuven.spot.objects.manageLocation;
+
 public class MainActivity extends AppCompatActivity {
 
     private Double longitude = 0.0;
     private Double latitude = 0.0;
     private final Bundle bundle = new Bundle();
-    manageLocation manageLocation;
+    be.kuleuven.spot.objects.manageLocation manageLocation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
 
         manageLocation = new manageLocation(this,longitude,latitude);
         try {
-            Thread.sleep(4000);
+            Thread.sleep(3000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

@@ -1,4 +1,4 @@
-package be.kuleuven.spot;
+package be.kuleuven.spot.fragment;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -25,6 +25,10 @@ import com.android.volley.toolbox.Volley;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import be.kuleuven.spot.R;
+import be.kuleuven.spot.activity.activity_changePassword;
+import be.kuleuven.spot.activity.activity_changeProfile;
 
 public class ProfileFragment extends Fragment implements View.OnClickListener {
 

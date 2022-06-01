@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/background"
     android:orientation="vertical"
-    tools:context=".ProfileFragment">
+    tools:context=".fragment.ProfileFragment">
 
     <!-- TODO: Update blank fragment layout -->
 
@@ -23,7 +23,6 @@
             android:layout_height="110dp"
             android:layout_marginTop="52dp"
             android:background="@android:color/white"
-            android:src="@drawable/ic_baseline_person_24"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"

@@ -1,4 +1,4 @@
-package be.kuleuven.spot;
+package be.kuleuven.spot.fragment;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -35,6 +35,10 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Objects;
+
+import be.kuleuven.spot.objects.Post;
+import be.kuleuven.spot.R;
+import be.kuleuven.spot.objects.calculateDistance;
 
 public class MapFragment extends Fragment {
     double latitude, longitude;
@@ -96,7 +100,7 @@ public class MapFragment extends Fragment {
 
 
     private BitmapDescriptor bitmapDescriptorFromVector(Context context, int vectorResId) {
-        Drawable vectorDrawable = ContextCompat.getDrawable(context, vectorResId);
+        Drawable vectorDrawable = ContextCompat.getDrawable(requireContext(), vectorResId);
         assert vectorDrawable != null;
         vectorDrawable.setBounds(0, 0, vectorDrawable.getIntrinsicWidth(), vectorDrawable.getIntrinsicHeight());
         Bitmap bitmap = Bitmap.createBitmap(vectorDrawable.getIntrinsicWidth(), vectorDrawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);

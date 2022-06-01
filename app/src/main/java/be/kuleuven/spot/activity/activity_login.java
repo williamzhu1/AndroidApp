@@ -1,4 +1,4 @@
-package be.kuleuven.spot;
+package be.kuleuven.spot.activity;
 
 import static java.lang.Integer.parseInt;
 
@@ -18,6 +18,9 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import be.kuleuven.spot.R;
+import be.kuleuven.spot.objects.manageLocation;
+
 public class activity_login extends AppCompatActivity {
 
     private EditText inputEmail_login;
@@ -28,7 +31,7 @@ public class activity_login extends AppCompatActivity {
     private static final String checkPasswordUrl = "https://studev.groept.be/api/a21pt215/passwordWithEmail/";
     private static final String getUsernameUrl = "https://studev.groept.be/api/a21pt215/getUsername/";
     Bundle bundle;
-    private manageLocation manageLocation;
+    private be.kuleuven.spot.objects.manageLocation manageLocation;
 
 
 
